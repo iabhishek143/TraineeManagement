@@ -1,5 +1,7 @@
 package com.cg.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,10 @@ public class TraineeServices implements ITraineeServices{
 	@Override
 	public Trainee searchTrainee(int traineeId) {
 		return traineeDAO.searchTrainee(traineeId);
+	}
+
+	@Override
+	public List<Trainee> displayAllTrainee() {
+		return traineeDAO.displayAllTrainee();
 	}
 }

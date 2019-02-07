@@ -1,5 +1,7 @@
 package com.cg.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -26,7 +28,6 @@ public class TraineeDAO implements ITraineeDAO{
 	@Override
 	public Trainee insertTrainee(Trainee trainee) {
 		entityManager.persist(trainee);
-		entityManager.flush();
 		return entityManager.find(Trainee.class, trainee.getTraineeId());
 	}
 
@@ -43,12 +44,18 @@ public class TraineeDAO implements ITraineeDAO{
 
 	@Override
 	public Trainee updateTrainee(int traineeId) {
-		
-		return null;
+		entityManager.merge(searchTrainee(traineeId));
+		entityManager.flush();
+		return entityManager.find(Trainee.class, traineeId);
 	}
 
 	@Override
 	public Trainee searchTrainee(int traineeId) {
 		return entityManager.find(Trainee.class, traineeId);
+	}
+
+	@Override
+	public List<Trainee> displayAllTrainee() {
+		return entityManager.createQuery("from Trainee t", Trainee.class).getResultList();
 	}	
 }

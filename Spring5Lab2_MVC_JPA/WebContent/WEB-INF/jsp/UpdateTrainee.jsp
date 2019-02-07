@@ -2,21 +2,22 @@
 <html>
 <body>
 	<div align="center">
-		<h2>Trainee Details</h2>
+		<h2>Delete operation</h2>
 		<hr color="mediumseagreen" size="5" />
-		<m:form action="DisplayTrainee.obj" modelAttribute="trainee"
+		<m:form action="UpdateTraineePage1.obj" modelAttribute="trainee"
 			method="post">
 			<table>
 				<tr>
 					<td>Trainee Id</td>
 					<td><m:input path="traineeId" /></td>
+				</tr>
+				<tr>
 					<td><input type="submit" value="Submit"></td>
+					<td><input type="reset" value="Reset"></td>
 				</tr>
 			</table>
 		</m:form>
-		
-		${htmlCode} 
-		
+		${msg}
 	</div>
 </body>
 </html>

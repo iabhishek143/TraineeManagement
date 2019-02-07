@@ -1,5 +1,7 @@
 package com.cg.dao;
 
+import java.util.List;
+
 import com.cg.dto.Trainee;
 
 public interface ITraineeDAO {
@@ -10,4 +12,6 @@ public interface ITraineeDAO {
 	Trainee updateTrainee(int traineeId);
 
 	Trainee searchTrainee(int traineeId);
+	
+	List<Trainee> displayAllTrainee();
 }

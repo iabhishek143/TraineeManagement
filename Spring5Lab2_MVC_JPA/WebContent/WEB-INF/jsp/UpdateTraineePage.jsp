@@ -4,7 +4,7 @@
 	<div align="center">
 		<h2>Update operation</h2>
 		<hr color="mediumseagreen" size="5" />
-		<m:form action="DeleteTrainee.obj" modelAttribute="trainee"
+		<m:form action="UpdateTrainee.obj" modelAttribute="trainee"
 			method="post">
 			<table>
 				<tr>
@@ -17,7 +17,7 @@
 				</tr>
 			</table>
 		</m:form>
-		<m:form action="InsertTrainee.obj" modelAttribute="trainee"
+		<m:form action="UpdateTrainee.obj" modelAttribute="trainee"
 			method="post">
 			<table>
 				<tr>

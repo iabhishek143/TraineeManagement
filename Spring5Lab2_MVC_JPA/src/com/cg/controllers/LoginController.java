@@ -60,7 +60,7 @@ public class LoginController {
 	/*****************************InsertTrainee***************************/
 	@RequestMapping(value = "InsertTrainee", method = RequestMethod.POST)
 	public String insertTrainee(@ModelAttribute(value = "trainee") Trainee trainee, Model model) {
-		if (traineeServices.insertTrainee(trainee) != null) {
+		if (traineeServices.insertTrainee(trainee)!= null) {
 			model.addAttribute("msg", "Trainee added successfully");
 			return "AddTraineePage";
 		} else {
@@ -80,7 +80,7 @@ public class LoginController {
 	public String deleteTrainee(@ModelAttribute(value = "trainee") Trainee trainee, Model model) {
 		if (traineeServices.deleteTrainee(trainee.getTraineeId()) != null) {
 			model.addAttribute("msg", "Trainee deleted successfully");
-			model.addAttribute("trainee",trainee);
+			//model.addAttribute("trainee",trainee);
 			return "DeleteTraineePage";
 		}
 		model.addAttribute("msg", "Failed to delete trainee");
@@ -99,38 +99,51 @@ public class LoginController {
 		trainee=traineeServices.searchTrainee(trainee.getTraineeId());
 		if((trainee)!= null) {
 			model.addAttribute("trainee", trainee);
-			model.addAttribute("htmlCode", "<tr><th>Name</th><th>ID</th><th>Domain</th><th>Location</th></tr><td>"
+			model.addAttribute("htmlCode", "<table border=\"3\" style=\"width:30%\"><tr><th>Name</th><th>ID</th><th>Domain</th><th>Location</th></tr><td>"
 			+trainee.getTraineeName()+"</td><td>"+ trainee.getTraineeId()+"</td><td>"
 			+trainee.getTraineeDomain()+"</td><td>"+trainee.getTraineeLocation()
-			+"</td></tr>");
+			+"</td></tr></table>");
 			return "DisplayTrainee";
 		}
 		return null;
 	}
+	
+	/****************************Display All Trainee Details**********************************/
+	@RequestMapping(value = "DisplayAllTraineePage", method = RequestMethod.GET)
+    public String displayAllTrainee(@ModelAttribute(value = "trainees") ArrayList<Trainee> trainees, Model model) {
+        trainees = (ArrayList<Trainee>) traineeServices.displayAllTrainee();
+        model.addAttribute("trainees", trainees);
+        return "DisplayAllTrainee";
+    }
 
 
-	/**************************************************************/
+	/*****************************Update********************************/
+	
 	@RequestMapping(value = "UpdateTraineePage", method = RequestMethod.GET)
-	public String displayUpdateTraineePage(Model model) {
-		model.addAttribute("trainee", new Trainee());
-		return "UpdateTraineePage";
-	}
-
-	@RequestMapping(value = "UpdateTraineePage", method = RequestMethod.POST)
-	public String updateTrainee(@ModelAttribute(value = "trainee") Trainee trainee, Model model) {
-		if (traineeServices.updateTrainee(trainee.getTraineeId()) != null) {
-			model.addAttribute("msg", "Trainee updated successfully");
-			model.addAttribute("trainee",trainee);
-			return "DeleteTraineePage";
-		} else {
-			model.addAttribute("msg", "Failed to update trainee");
-			return "DeleteTraineePage";
-		}
-	}
-
-
-
-
-
-
+    public String displayUpdateTraineePage(Model model) {
+        model.addAttribute("trainee", new Trainee());
+        return "UpdateTrainee";
+    }
+    @RequestMapping(value = "UpdateTraineePage1", method = RequestMethod.POST)
+    public String displayUpdateTraineePage1(@ModelAttribute(value="trainee") Trainee trainee, Model model) {
+        trainee=traineeServices.searchTrainee(trainee.getTraineeId());
+        model.addAttribute("trainee", trainee);
+        ArrayList<String> domains=new ArrayList<>();
+		domains.add("JEE");
+		domains.add("Cloud");
+		domains.add("Big Data");
+		model.addAttribute("domains",domains);
+        return "UpdateTraineePage";
+    }
+    @RequestMapping(value = "UpdateTrainee", method = RequestMethod.POST)
+    public String updateTrainee(@ModelAttribute(value = "trainee") Trainee trainee, Model model) {
+        if (traineeServices.updateTrainee(trainee.getTraineeId()) != null) {
+            model.addAttribute("msg", "Trainee updated successfully");
+            model.addAttribute("trainee", trainee);
+            return "UpdateTraineePage";
+        } else {
+            model.addAttribute("msg", "Failed to update trainee");
+            return "UpdateTraineePage";
+        }
+    }
 }
